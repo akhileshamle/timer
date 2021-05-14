@@ -10,8 +10,7 @@ import UIKit
 class ReminderViewController: ReminderBaseViewController {
     
     @IBOutlet weak var lblStartTime: UILabel!
-    @IBOutlet weak var lblStopTime: UILabel!
-    @IBOutlet weak var lblLog: UILabel!
+    @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var activityView: UIView!
@@ -44,11 +43,8 @@ class ReminderViewController: ReminderBaseViewController {
             }
         }
     }
-    let shortTime : TimeInterval = 1
-    let longTime : TimeInterval = 9
     
     var reminder : ReminderProcessor?
-    var player : ReminderPlayer?
     
     var queue = DispatchQueue.init(label: "local-notifications-queue", attributes: .concurrent)
 
@@ -58,30 +54,36 @@ class ReminderViewController: ReminderBaseViewController {
         self.btnStart.isHidden = false
         self.btnStop.isHidden = true
         updateStartTimeOnUI(nil)
-        updateStopTimeOnUI(nil)
-        updateLogOnUI(nil)
         reminder = ReminderProcessor()
-        player = ReminderPlayer()
-        
-        // TODO: test
-        /*
-        let notificationDate = Date().addingTimeInterval(10)
-        NotificationProcessor.shared.scheduleNotification(min: 1, date: notificationDate) { (error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                print("ok")
-            }
-        }
-         */
+        self.onOrientationDidChange()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.onOrientationDidChange()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.onOrientationDidChange()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.onOrientationDidChange()
+    }
+    
+    private func onOrientationDidChange() {
         if UIDevice.current.orientation.isLandscape {
             self.stackView.axis = .horizontal
         } else if UIDevice.current.orientation.isPortrait {
             self.stackView.axis = .vertical
         }
+        self.view.layoutIfNeeded()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.onOrientationDidChange()
     }
     private func fadeInAndOut(currentView: UIView) {
         currentView.alpha = 0
@@ -101,29 +103,23 @@ class ReminderViewController: ReminderBaseViewController {
         }
     }
     
-    private func updateStopTimeOnUI(_ text: String?) {
-        if let text = text {
-            lblStopTime.alpha = 0
-            self.fadeInAndOut(currentView: self.lblStopTime)
-            lblStopTime.text = "\(text)"
-        } else {
-            self.fadeInAndOut(currentView: self.lblStopTime)
-            lblStopTime.text = "-"
-        }
-    }
-    
-    private func updateLogOnUI(_ text: String?, append: Bool = false) {
-        if append, let currentText = self.lblLog.text, let text = text {
-            self.fadeInAndOut(currentView: self.lblLog)
-            self.lblLog.text = "\(currentText), \(text)"
+    private func updateTimerOnUI(_ text: String?, fade: Bool = true) {
+        if !fade {
+            if let text = text {
+                lblTimer.text = "\(text)"
+            } else {
+                lblTimer.text = ""
+            }
             return
         }
+        
         if let text = text {
-            self.fadeInAndOut(currentView: self.lblLog)
-            lblLog.text = text
+            lblTimer.alpha = 0
+            self.fadeInAndOut(currentView: self.lblTimer)
+            lblTimer.text = "\(text)"
         } else {
-            self.fadeInAndOut(currentView: self.lblLog)
-            lblLog.text = "-"
+            self.fadeInAndOut(currentView: self.lblTimer)
+            lblTimer.text = "-"
         }
     }
     
@@ -131,10 +127,9 @@ class ReminderViewController: ReminderBaseViewController {
         self.btnStart.isHidden = true
         self.btnStop.isHidden = false
         self.isLoading = true
-        reminder?.start(shortMinute: shortTime, longMinute: longTime, { message in
+        reminder?.start({ message in
             if let message = message {
-                self.updateLogOnUI(message)
-                self.player?.play()
+                self.updateTimerOnUI(message, fade: false)
             }
         })
         
@@ -155,9 +150,6 @@ class ReminderViewController: ReminderBaseViewController {
                 }
             }
         }
-        
-        self.updateStopTimeOnUI(nil)
-        self.updateLogOnUI(nil)
     }
     
     @IBAction func didSelectStop(_ sender: Any?) {
@@ -167,19 +159,8 @@ class ReminderViewController: ReminderBaseViewController {
         reminder?.stop()
         NotificationProcessor.shared.removeAllDelivered()
         NotificationProcessor.shared.removeAllPending()
-        if let diff = self.reminder?.getTimeDifference() {
-            self.updateLogOnUI("\(diff)")
-        }
-        if let stopTime = reminder?.getStopTime() {
-            self.updateStopTimeOnUI("\(stopTime)")
-            self.updateLogOnUI("stopped", append: true)
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? InfoViewController {
-            controller.shortTime = self.shortTime
-            controller.longTime = self.longTime
-        }
     }
 }

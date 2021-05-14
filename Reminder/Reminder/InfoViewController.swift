@@ -11,14 +11,9 @@ class InfoViewController: ReminderBaseViewController {
     
     @IBOutlet weak var lblMessage : UILabel!
 
-    var shortTime : TimeInterval?
-    var longTime : TimeInterval?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let short = self.shortTime, let long = self.longTime {
-        lblMessage.text = "Plays a sound after each time interval.\n1. Short interval: \(short) min(s) (only once)\n&\n2. Long interval: every \(long) min(s)"
-        }
+        lblMessage.text = "simple timer"
     }
     
     @IBAction func didSelectClose(_ sender: Any?) {

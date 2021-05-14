@@ -9,21 +9,15 @@ import UIKit
 
 class ReminderProcessor: NSObject {
 
-    private var shortTimer: Timer?
-    private var longTimer: Timer?
+    private var timer: Timer?
     typealias CompletionHandler = (String?) -> ()
     var completionHandler : CompletionHandler?
     private(set) var startTime: Date?
     private(set) var stopTime: Date?
-    private(set) var shortMinute : TimeInterval?
-    private(set) var longMinute : TimeInterval?
     
-    func start(shortMinute: TimeInterval, longMinute: TimeInterval,_ completionHandler: @escaping CompletionHandler) {
+    func start(_ completionHandler: @escaping CompletionHandler) {
         self.completionHandler = completionHandler
-        self.shortMinute = shortMinute
-        self.longMinute = longMinute
-        shortTimer = Timer.scheduledTimer(timeInterval: getMinutes(shortMinute), target: self, selector: #selector(shortTimerEnded), userInfo: nil, repeats: false)
-        longTimer = Timer.scheduledTimer(timeInterval: getMinutes(longMinute), target: self, selector: #selector(longTimerEnded), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerEnded), userInfo: nil, repeats: true)
         startTime = Date()
         stopTime = nil
     }
@@ -32,10 +26,8 @@ class ReminderProcessor: NSObject {
         if stopTime == nil {
             stopTime = Date()
         }
-        shortTimer?.invalidate()
-        longTimer?.invalidate()
-        shortTimer = nil
-        longTimer = nil
+        timer?.invalidate()
+        timer = nil
         completionHandler = nil
     }
     
@@ -79,9 +71,10 @@ class ReminderProcessor: NSObject {
     }
     
     func datesForNotifications(numberOfNotifications: Int) -> [Date] {
+        /*
         var dates : [Date] = []
         guard let startTime = self.startTime else { return [] }
-        guard let shortMinute = self.shortMinute else { return [] }
+        
         guard let longMinute = self.longMinute else { return [] }
         dates.append(startTime.addingTimeInterval(60 * shortMinute)) // short minute
         
@@ -90,20 +83,15 @@ class ReminderProcessor: NSObject {
         }
         
         return dates
+         */
+        return []
     }
     
     private func getMinutes(_ unit: TimeInterval) -> TimeInterval {
         return unit * 60
     }
     
-    
-    @objc private func shortTimerEnded() {
-        self.shortTimer?.invalidate()
-        self.shortTimer = nil
-        self.notifyCompletion(self.getTimeDifference())
-    }
-    
-    @objc private func longTimerEnded() {
+    @objc private func timerEnded() {
         self.notifyCompletion(self.getTimeDifference())
     }
     
