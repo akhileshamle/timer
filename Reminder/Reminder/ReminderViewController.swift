@@ -12,34 +12,9 @@ class ReminderViewController: ReminderBaseViewController {
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
-    @IBOutlet weak var activityView: UIView!
-    @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet weak var bgView: UIView!
     
     @IBOutlet weak var stackView: UIStackView!
-    
-    var isLoading : Bool = false {
-        didSet {
-            if self.isLoading {
-                self.activityView.isHidden = !self.isLoading
-                self.activityView.alpha = 0
-                UIView.animate(withDuration: 0.5) {
-                    self.activityView.alpha = 1
-                }
-                self.activity.startAnimating()
-            } else {
-                self.activityView.alpha = 1
-                UIView.animate(withDuration: 0.5) {
-                    self.activityView.alpha = 0
-                } completion: { (true) in
-                    if true {
-                        self.activityView.isHidden = !self.isLoading
-                        self.activity.stopAnimating()
-                    }
-                }
-            }
-        }
-    }
     
     var reminder : ReminderProcessor?
     
@@ -47,7 +22,6 @@ class ReminderViewController: ReminderBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isLoading = false
         self.btnStart.isHidden = false
         self.btnStop.isHidden = true
         reminder = ReminderProcessor()
@@ -124,7 +98,6 @@ class ReminderViewController: ReminderBaseViewController {
     @IBAction func didSelectStart(_ sender: Any?) {
         self.btnStart.isHidden = true
         self.btnStop.isHidden = false
-        self.isLoading = true
         reminder?.start({ message in
             if let message = message {
                 self.updateTimerOnUI(message, fade: false)
@@ -149,7 +122,6 @@ class ReminderViewController: ReminderBaseViewController {
     @IBAction func didSelectStop(_ sender: Any?) {
         self.btnStart.isHidden = false
         self.btnStop.isHidden = true
-        self.isLoading = false
         reminder?.stop()
         NotificationProcessor.shared.removeAllDelivered()
         NotificationProcessor.shared.removeAllPending()

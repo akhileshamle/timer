@@ -101,36 +101,10 @@
                                     <segue destination="juF-c6-Qnw" kind="show" id="ijh-2W-83q"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPJ-NH-AGW" userLabel="activity view">
-                                <rect key="frame" x="230" y="40" width="50" height="50"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Yg3-Yc-Z03">
-                                        <rect key="frame" x="10" y="10" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="2kS-kS-M6k"/>
-                                            <constraint firstAttribute="height" constant="30" id="dfH-cK-x1p"/>
-                                        </constraints>
-                                        <color key="color" systemColor="systemPinkColor"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemYellowColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="c1P-vL-7kq"/>
-                                    <constraint firstItem="Yg3-Yc-Z03" firstAttribute="centerX" secondItem="sPJ-NH-AGW" secondAttribute="centerX" id="ceO-xV-sYM"/>
-                                    <constraint firstAttribute="height" constant="50" id="dZH-Pd-OaP"/>
-                                    <constraint firstItem="Yg3-Yc-Z03" firstAttribute="centerY" secondItem="sPJ-NH-AGW" secondAttribute="centerY" id="xf8-hZ-UmR"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="22"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sPJ-NH-AGW" secondAttribute="trailing" constant="40" id="1Ki-qx-kYD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tr6-br-n6Q" secondAttribute="bottom" id="7rQ-Ke-CI3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hdc-ut-qpR" secondAttribute="trailing" constant="20" id="Cpw-Qs-0v7"/>
                             <constraint firstItem="Dgk-uN-faS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="IpV-vR-Fe3"/>
@@ -140,12 +114,9 @@
                             <constraint firstItem="hdc-ut-qpR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="mKO-7X-OHc"/>
                             <constraint firstItem="hdc-ut-qpR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="yNR-gt-4Ll"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tr6-br-n6Q" secondAttribute="trailing" id="yTb-uh-SOv"/>
-                            <constraint firstItem="sPJ-NH-AGW" firstAttribute="top" secondItem="kHT-mD-gaz" secondAttribute="top" id="zJ1-nC-2W9"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activity" destination="Yg3-Yc-Z03" id="2gK-Lj-Wya"/>
-                        <outlet property="activityView" destination="sPJ-NH-AGW" id="eV9-bu-jan"/>
                         <outlet property="bgView" destination="hdc-ut-qpR" id="4ax-vh-rtk"/>
                         <outlet property="btnStart" destination="BEx-Rt-5eH" id="CJM-OA-RyE"/>
                         <outlet property="btnStop" destination="po1-ua-OdE" id="13o-qB-bjb"/>
