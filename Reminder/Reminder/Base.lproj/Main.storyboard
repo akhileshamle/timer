@@ -18,29 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdc-ut-qpR" userLabel="bg view">
-                                <rect key="frame" x="20" y="20" width="280" height="368"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kHT-mD-gaz" userLabel="content">
-                                        <rect key="frame" x="20" y="20" width="240" height="328"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timer." textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="OXK-hh-aGz">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="328"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="200"/>
-                                                <color key="textColor" systemColor="systemYellowColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="kHT-mD-gaz" secondAttribute="bottom" constant="20" id="EVG-ZJ-Kns"/>
-                                    <constraint firstAttribute="trailing" secondItem="kHT-mD-gaz" secondAttribute="trailing" constant="20" id="h4v-MX-FQj"/>
-                                    <constraint firstItem="kHT-mD-gaz" firstAttribute="top" secondItem="hdc-ut-qpR" secondAttribute="top" constant="20" id="hJQ-qP-4te"/>
-                                    <constraint firstItem="kHT-mD-gaz" firstAttribute="leading" secondItem="hdc-ut-qpR" secondAttribute="leading" constant="20" id="qKp-Cs-MUa"/>
-                                </constraints>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timer." textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="OXK-hh-aGz">
+                                <rect key="frame" x="20" y="20" width="280" height="408"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="200"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Dgk-uN-faS" userLabel="start, stop buttons">
                                 <rect key="frame" x="20" y="408" width="280" height="140"/>
                                 <subviews>
@@ -106,22 +89,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tr6-br-n6Q" secondAttribute="bottom" id="7rQ-Ke-CI3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hdc-ut-qpR" secondAttribute="trailing" constant="20" id="Cpw-Qs-0v7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OXK-hh-aGz" secondAttribute="trailing" constant="20" id="Goq-NR-fXE"/>
                             <constraint firstItem="Dgk-uN-faS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="IpV-vR-Fe3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Dgk-uN-faS" secondAttribute="bottom" constant="20" id="VlV-Qm-DJh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dgk-uN-faS" secondAttribute="trailing" constant="20" id="ZPg-KA-x0Q"/>
-                            <constraint firstItem="Dgk-uN-faS" firstAttribute="top" secondItem="hdc-ut-qpR" secondAttribute="bottom" constant="20" id="ctI-p5-QmS"/>
-                            <constraint firstItem="hdc-ut-qpR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="mKO-7X-OHc"/>
-                            <constraint firstItem="hdc-ut-qpR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="yNR-gt-4Ll"/>
+                            <constraint firstItem="OXK-hh-aGz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="aSz-JE-xLG"/>
+                            <constraint firstItem="OXK-hh-aGz" firstAttribute="bottom" secondItem="Dgk-uN-faS" secondAttribute="top" constant="20" id="q3q-Kz-KXC"/>
+                            <constraint firstItem="OXK-hh-aGz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rgn-5e-Oog"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tr6-br-n6Q" secondAttribute="trailing" id="yTb-uh-SOv"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bgView" destination="hdc-ut-qpR" id="4ax-vh-rtk"/>
                         <outlet property="btnStart" destination="BEx-Rt-5eH" id="CJM-OA-RyE"/>
                         <outlet property="btnStop" destination="po1-ua-OdE" id="13o-qB-bjb"/>
                         <outlet property="lblTimer" destination="OXK-hh-aGz" id="k5f-a0-yP5"/>
-                        <outlet property="stackView" destination="kHT-mD-gaz" id="966-YG-n6k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
