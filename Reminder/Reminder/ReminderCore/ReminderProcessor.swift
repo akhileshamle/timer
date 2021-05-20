@@ -35,23 +35,8 @@ class ReminderProcessor: NSObject {
         guard let startTime = startTime else { return nil }
         let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: self.stopTime != nil ? stopTime! : Date())
         var differenceString : String = ""
-        if let hour = dateComponents.hour, hour > 0 {
-            differenceString += "\(hour)h"
-        }
-        
-        if let minutes = dateComponents.minute, minutes > 0 {
-            if differenceString.count > 0 {
-                differenceString += ":\(minutes)m"
-            } else {
-                differenceString += "\(minutes)m"
-            }
-        }
-        if let seconds = dateComponents.second, seconds > 0 {
-            if differenceString.count > 0 {
-                differenceString += ":\(seconds)s"
-            } else {
-                differenceString += "\(seconds)s"
-            }
+        if let hour = dateComponents.hour, let minutes = dateComponents.minute, let seconds = dateComponents.second {
+            differenceString = "\(String(format: "%02d", hour))h:\(String(format: "%02d", minutes))m:\(String(format: "%02d", seconds))s"
         }
         return differenceString
     }

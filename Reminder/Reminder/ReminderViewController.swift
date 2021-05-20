@@ -16,7 +16,6 @@ class ReminderViewController: ReminderBaseViewController {
     @IBOutlet weak var activityView: UIView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
     
-    @IBOutlet weak var breatingView: BreathingView!
     @IBOutlet weak var stackView: UIStackView!
     
     var isLoading : Bool = false {
@@ -28,7 +27,6 @@ class ReminderViewController: ReminderBaseViewController {
                     self.activityView.alpha = 1
                 }
                 self.activity.startAnimating()
-                self.breatingView.start()
             } else {
                 self.activityView.alpha = 1
                 UIView.animate(withDuration: 0.5) {
@@ -37,7 +35,6 @@ class ReminderViewController: ReminderBaseViewController {
                     if true {
                         self.activityView.isHidden = !self.isLoading
                         self.activity.stopAnimating()
-                        self.breatingView.stop()
                     }
                 }
             }
