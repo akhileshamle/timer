@@ -9,12 +9,12 @@ import UIKit
 
 class ReminderViewController: ReminderBaseViewController {
     
-    @IBOutlet weak var lblStartTime: UILabel!
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var activityView: UIView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var bgView: UIView!
     
     @IBOutlet weak var stackView: UIStackView!
     
@@ -50,24 +50,36 @@ class ReminderViewController: ReminderBaseViewController {
         isLoading = false
         self.btnStart.isHidden = false
         self.btnStop.isHidden = true
-        updateStartTimeOnUI(nil)
         reminder = ReminderProcessor()
         self.onOrientationDidChange()
+        self.updateBGViewUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.onOrientationDidChange()
+        self.updateBGViewUI()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.onOrientationDidChange()
+        self.updateBGViewUI()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.onOrientationDidChange()
+        self.updateBGViewUI()
+    }
+    
+    private func updateBGViewUI() {
+        if UIDevice.current.orientation.isLandscape {
+            self.bgView.layer.cornerRadius = self.bgView.frame.height / 6.4
+        } else if UIDevice.current.orientation.isPortrait {
+            self.bgView.layer.cornerRadius = self.bgView.frame.width / 6.4
+        }
+        self.view.layoutIfNeeded()
     }
     
     private func onOrientationDidChange() {
@@ -86,17 +98,6 @@ class ReminderViewController: ReminderBaseViewController {
         currentView.alpha = 0
         UIView.animate(withDuration: 0.5) {
             currentView.alpha = 1
-        }
-    }
-    
-    private func updateStartTimeOnUI(_ text: String?) {
-        if let text = text {
-            lblStartTime.alpha = 0
-            self.fadeInAndOut(currentView: self.lblStartTime)
-            lblStartTime.text = "\(text)"
-        } else {
-            self.fadeInAndOut(currentView: self.lblStartTime)
-            lblStartTime.text = "-"
         }
     }
     
@@ -129,11 +130,7 @@ class ReminderViewController: ReminderBaseViewController {
                 self.updateTimerOnUI(message, fade: false)
             }
         })
-        
-        if let startTime = reminder?.getStartTime() {
-            self.updateStartTimeOnUI("\(startTime)")
-        }
-        
+                
         if let dates = reminder?.datesForNotifications(numberOfNotifications: 3) {
             for date in dates {
                 NotificationProcessor.shared.scheduleNotification(min: 9, date: date) { (error) in
