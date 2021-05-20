@@ -73,7 +73,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tr6-br-n6Q" userLabel="info">
-                                <rect key="frame" x="270" y="518" width="50" height="50"/>
+                                <rect key="frame" x="270" y="453" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4dP-tH-bK3"/>
                                     <constraint firstAttribute="width" constant="50" id="EL3-mc-t6W"/>
@@ -88,7 +88,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tr6-br-n6Q" secondAttribute="bottom" id="7rQ-Ke-CI3"/>
+                            <constraint firstItem="tr6-br-n6Q" firstAttribute="centerY" secondItem="Dgk-uN-faS" secondAttribute="centerY" id="1cj-Qz-rbD"/>
                             <constraint firstItem="OXK-hh-aGz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="DLg-n7-pSa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OXK-hh-aGz" secondAttribute="trailing" constant="5" id="Goq-NR-fXE"/>
                             <constraint firstItem="Dgk-uN-faS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="IpV-vR-Fe3"/>
