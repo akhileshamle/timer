@@ -36,7 +36,7 @@ class ReminderProcessor: NSObject {
         let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: self.stopTime != nil ? stopTime! : Date())
         var differenceString : String = ""
         if let hour = dateComponents.hour, let minutes = dateComponents.minute, let seconds = dateComponents.second {
-            differenceString = "\(String(format: "%02d", hour))h:\(String(format: "%02d", minutes))m:\(String(format: "%02d", seconds))s"
+            differenceString = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes)).\(String(format: "%02d", seconds))"
         }
         return differenceString
     }

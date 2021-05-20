@@ -13,7 +13,7 @@ class InfoViewController: ReminderBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblMessage.text = "simple timer"
+        lblMessage.text = "hh:mm.ss\ntimer."
     }
     
     @IBAction func didSelectClose(_ sender: Any?) {
