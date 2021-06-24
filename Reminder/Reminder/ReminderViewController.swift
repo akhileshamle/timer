@@ -10,9 +10,13 @@ import UIKit
 class ReminderViewController: ReminderBaseViewController {
     
     @IBOutlet weak var lblTimer: UILabel!
+    @IBOutlet weak var lblCurrentTime: UILabel!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
+    @IBOutlet weak var contentStack: UIStackView!
+    @IBOutlet weak var bottomStack: UIStackView!
     
+    var currentTimer : ReminderProcessor?
     var reminder : ReminderProcessor?
     
     var queue = DispatchQueue.init(label: "local-notifications-queue", attributes: .concurrent)
@@ -22,6 +26,24 @@ class ReminderViewController: ReminderBaseViewController {
         self.btnStart.isHidden = false
         self.btnStop.isHidden = true
         reminder = ReminderProcessor()
+        self.startCurrentTimer()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            self.contentStack.axis = .horizontal
+            self.bottomStack.axis = .vertical
+        } else if UIDevice.current.orientation.isPortrait {
+            self.contentStack.axis = .vertical
+            self.bottomStack.axis = .horizontal
+        }
+    }
+    
+    private func startCurrentTimer() {
+        self.currentTimer = ReminderProcessor()
+        self.currentTimer?.start({ message in
+            self.lblCurrentTime.text = self.currentTimer?.getCurrentTime()
+        })
     }
     
     private func fadeInAndOut(currentView: UIView) {

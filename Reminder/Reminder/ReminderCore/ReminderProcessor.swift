@@ -31,6 +31,12 @@ class ReminderProcessor: NSObject {
         completionHandler = nil
     }
     
+    func getCurrentTime() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm.s a"
+        return dateFormatter.string(from: Date())
+    }
+    
     func getTimeDifference() -> String? {
         guard let startTime = startTime else { return nil }
         let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: self.stopTime != nil ? stopTime! : Date())
